@@ -39,6 +39,13 @@ pip install opencv-python==4.12.0.88
 pip install imagecodecs
 ```
 
+## To run the code
+```bash
+git clone https://github.com/djaliloh/Deep-learning-training.git
+cd Deep-learning-training
+```
+
+
 ## Contact
 - Ousseini Hamza Abdoul Djalil - Engineer (abdouldjalilo@gmail.com)
 - Rousseau David - Univ. Professor
