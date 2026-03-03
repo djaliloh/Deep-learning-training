@@ -33,7 +33,10 @@ Each folder represents a class.
 ```bash
 conda create -n cnn_training python=3.10
 conda activate cnn_training
-pip install torch torchvision scikit-learn matplotlib opencv-python
+pip install numpy matplotlib pillow jupyter ipykernel tqdm scikit-learn
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install opencv-python==4.12.0.88
+pip install imagecodecs
 ```
 
 ## Contact
