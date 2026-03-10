@@ -173,12 +173,19 @@ Implemented with torchvision pretrained weights.
 
 ```bash
 - Prediction examples
+
 <p align="center"> 
-| Image | Ground Truth                 | Prediction           |
-|-------|------------------------------|----------------------|
-| <img src=results/gthealth_predhealth.png atl=healthy width="250"> | healthy    | healthy |
-| <img src=results/gtmiil_predmil2.png atl=mildiou width="250">      | mildiou    | mildiou |
+    <img src=results/gthealth_predhealth.png atl=healthy width="250"> 
+    <img src=results/gtmiil_predmil2.png atl=mildiou width="250"> 
 </p>
+
+
+# <p align="center"> 
+# | Image | Ground Truth                 | Prediction           |
+# |-------|------------------------------|----------------------|
+# | <img src=results/gthealth_predhealth.png atl=healthy width="250"> | healthy    | healthy |
+# | <img src=results/gtmiil_predmil2.png atl=mildiou width="250">      | mildiou    | mildiou |
+# </p>
 ```
 
 
