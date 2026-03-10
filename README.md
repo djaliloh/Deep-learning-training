@@ -7,7 +7,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository provides an educational pipeline for image classification using **Transfer Learning** with classical CNN architectures (ResNet, VGG).
+This repository provides an educational pipeline for image classification using **Transfer Learning** with classical CNN architectures (ResNet, VGG). It was developed as part of an **INRAE staff training course** held from **March 3 to 5, 2026**.
 
 ## ⏱ Quick Start
 
