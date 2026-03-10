@@ -173,12 +173,11 @@ Implemented with torchvision pretrained weights.
 
 ```bash
 - Prediction examples
-
-| Image | Ground Truth                 | Prediction           |
-|-------|------------------------------|----------------------|
-| ![](results/gthealth_predhealth.png) | healthy    | healthy |
-| ![](results/gtmiil_predmil.png)      | mildiou    | mildiou |
-| ![](results/img3.png)                | healthy    | mildiou |
+| Image | GT | Prediction |
+|------|------|------|
+| <img src="https://raw.githubusercontent.com/djaliloh/Deep-learning-training/main/results/gthealth_predhealth.png" width="250"> | healthy | healthy |
+| <img src="https://raw.githubusercontent.com/djaliloh/Deep-learning-training/main/results/gtmiil_predmil.png" width="250"> | mildiou | mildiou |
+# | ![](results/img3.png)                | healthy    | mildiou |
 ```
 
 
