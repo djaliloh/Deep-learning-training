@@ -1,0 +1,9 @@
+numpy matplotlib 
+pillow 
+jupyter 
+ipykernel 
+tqdm 
+scikit-learn
+torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+opencv-python==4.12.0.88
+imagecodecs
