@@ -175,8 +175,8 @@ Implemented with torchvision pretrained weights.
 - Prediction examples
 
 <p align="center"> 
-    <img src=results/gthealth_predhealth.png atl=healthy width="250"> 
-    <img src=results/gtmiil_predmil2.png atl=mildiou width="250"> 
+    <img src=results/gthealtprehealt.png atl=healthy width="250"> 
+    <img src=results/gtmilpremil.png atl=mildiou width="250"> 
 </p>
 
 
