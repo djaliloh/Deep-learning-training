@@ -1,85 +1,57 @@
 # Image Classification Training – CNN with PyTorch
 
-## Overview
+<p align="center">
+    <img src="results/deepltrain_logo.png" alt="deepltrain_logo" width=2100>
+</p>
 
-This repository contains a complete educational pipeline for image classification using classical CNN architectures (ResNet, VGG) with PyTorch.
+[![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+This repository provides an educational pipeline for image classification using **Transfer Learning** with classical CNN architectures (ResNet, VGG).
+
+## ⏱ Quick Start
+
+1. **Prepare**: Open `session1_data_preparation.ipynb` to tile your images.
+2. **Train**: Open `session2_train_cnn.ipynb`, set your hyperparameters, and run.
+3. **Analyze**: Open `session3_inference.ipynb` to see predictions and Grad-CAM maps.
+
+
+
+## Features
 The training session covers:
-
-1. Data preparation
-2. Transfer learning
-3. Training & validation pipeline
-4. Early stopping
-5. Model checkpointing
-6. Confusion matrix
-7. Learning curves : losses, accuracies, confusion matrix
-8. Grad-CAM visualization
+* **Data preparation:** Image-level splitting and patch extraction.
+* **Transfer learning:** Multiple training regimes (Fixed, Progressive, Full).
+* **Pipeline:** Early stopping, model checkpointing, and learning curves.
+* **Evaluation:** Confusion matrices and **Grad-CAM** visualization.
 
 ---
 
-## Dataset preparation pipeline
+## Dataset Preparation Pipeline
 
-1. Source dataset (raw images + masks)
-2. Image-level split into train/val/test
-3. Patch extraction (tiling)
-4. Training using ImageFolder
+To prevent **data leakage**, we split the dataset at the image level *before* extracting patches. This ensures that patches from the same physical image never appear in both the training and validation sets.
 
-This workflow prevents data leakage between splits.
-
-### Initial dataset used before any processing.
-```bash
-The directory structure of your datasets **must** follow this structure:
+### 1. Source Structure (Raw)
+```text
 data_src/
-├── mask
-│   ├── healthy
-│   │   ├── image1.png
-│   │   └── image2.png
-|   |
-│   └── mildiou
-│       ├── image1.png
-│       └── image2.png
-│       
-└── raw
-│   ├── healthy
-│   │   ├── image1.png
-│   |   └── image2.png
-│   └── mildiou
-│       ├── image1.png
-│       └── image2.png
-
-- raw contains original RGB images.
-- mask contains segmentation masks associated with the images.
-- Images are organized by class.
-Each subfolder ('healthy' and 'mildiou') represents a class.
+├── mask/
+│   ├── healthy/ (image1.png, ...)
+│   └── mildiou/ (image1.png, ...)
+└── raw/
+    ├── healthy/ (image1.png, ...)
+    └── mildiou/ (image1.png, ...)
 ```
 
-### Dataset Split (image-level split)
-```bash
-The dataset is split before patch extraction to avoid data leakage.
+### 2. Intermediate Split (Image-Level)
+```text
 data_split/
-├── train
-│   ├── mask
-│   │   ├── healthy
-│   │   └── mildiou
-│   └── raw
-│       ├── healthy
-│       └── mildiou
-│
-├── val
-│   ├── mask
-│   └── raw
-│
-└── test
-    ├── mask
-    └── raw
-
-- Splitting is done at image level.
-- This prevents patches from the same image appearing in both training and validation/test sets.
+├── train/ (mask/raw)
+├── val/   (mask/raw)
+└── test/  (mask/raw)
 ```
 
-### Patch Extraction (training dataset)
-```bash
-After splitting, images are tiled into patches
+### 3. Final Patch Dataset (Tiled)
+```test
+This dataset is the one used by torchvision.datasets.ImageFolder.
 data_patch/
 ├── train/
 │   ├── healthy/
@@ -90,105 +62,70 @@ data_patch/
 └── test/
     ├── healthy/
     └── mildiou/
-
-- This dataset is the one used by torchvision.datasets.ImageFolder
 ```
----
 
 ## Installation
-
+```Bash 
 1. Clone the repository
-```bash
-git clone https://github.com/djaliloh/Deep-learning-training.git
+git clone [https://github.com/djaliloh/Deep-learning-training.git](https://github.com/djaliloh/Deep-learning-training.git)
 cd Deep-learning-training
 ```
 
+```Bash
 2. Create conda environment
-```bash
-conda create -n cnn_training python=3.10
+conda create -n cnn_training python=3.10 -y
 conda activate cnn_training
 ```
 
+```Bash
 3. Install requirements
-```bash
-pip install -r requirements
-```
----
-
-## To run the code
-- We have 2 ipynb in this repo. 'session1_data_preparation.ipynb' and 'session2_train_cnn.ipynb'
-1. Split your data into train, val and test and create patches to feed the network
-```bash
-Follow instructions in the 'session1_data_preparation.ipynb' to split your data and perform tiling on every split (train, val, test)
-```
-2. Run training
-```bash
-Follow instructions in the 'session2_train_cnn.ipynb' to run the training
-```
----
-
-
-## Models
-```bash
-Supported architectures:
-
-- ResNet18
-- ResNet34
-- ResNet50
-- VGG16
-
-Implemented with torchvision pretrained weights.
-```
----
-
-
-## Transfer Learning
-```bash
-> Two regimes exist in transfer learning with models such as ResNet-18 or VGG16 implemented in PyTorch / Torchvision.
-1. Fixed feature extractor (no unfreezing)
-    - conv backbone → frozen
-    - classifier head → trainable
-
-2. Progressive fine-tuning (unfreeze later)
-    - freeze backbone
-    - train classifier head
-    - unfreeze upper layers
-    - continue training with smaller LR
-
-> Full fine-tuning
-1.  Nothing is frozen.
-    - conv backbone → trainable
-    - classifier → trainable
-    * Risk: overfitting. (Works when dataset is large)
+pip install -r requirements.txt
 ```
 
-```bash
-- Undersatand traning mode :
-| mode        | backbone                          | classifier |
-| ----------- | --------------------------------- | ---------- |
-| fixed       | frozen                            | trainable  |
-| progressive | frozen → partially unfrozen later | trainable  |
-| full        | trainable                         | trainable  |
+## How to Run (Workflow & Execution)
+```text
+The project is divided into three sequential Jupyter notebooks:
+
+    1. Data Preparation: Open **session1_data_preparation.ipynb**. Follow the instructions to perform the image-level split and patch tiling.
+
+    2. Model Training: Open **session2_train_cnn.ipynb**.
+        Navigate to the Configuration cell to adjust hyperparameters (Learning Rate, Epochs, etc.).
+        Execute the Run training cell to begin the process.
+
+    3. Inference & Grad-CAM: Open **session3_inference.ipynb**.
+        Navigate to the Run inference cell to configure your test parameters.
+        Follow the remaining instructions to visualize model predictions and Grad-CAM heatmaps.
 ```
 
-```bash
-- Prediction examples
+## Transfer Learning Theory
 
-<p align="center"> 
-    <img src=results/gthealtprehealt.png atl=healthy width="250"> 
-    <img src=results/gtmilpremil.png atl=mildiou width="250"> 
-</p>
+We support **ResNet18, ResNet34, ResNet50, and VGG16** with pretrained weights.
+
+### Training Modes
+
+| Mode | Backbone | Classifier | Best Use Case |
+| :--- | :--- | :--- | :--- |
+| **Fixed** | Frozen | Trainable | Small datasets; prevents overfitting. |
+| **Progressive** | Frozen → Unfreeze later | Trainable | Fine-tuning upper layers for better accuracy. |
+| **Full** | Trainable | Trainable | Large datasets; full gradient updates. |
+
+In **Full Fine-tuning**, the gradients are backpropagated through all layers $L$, updating weights $\theta$ according to:
+
+$$\theta_{t+1} = \theta_t - \eta \nabla J(\theta_t)$$
+
+where $\eta$ is the learning rate, which is typically kept very small (e.g., $10^{-5}$) to avoid destroying the pretrained features.
 
 
-# <p align="center"> 
-# | Image | Ground Truth                 | Prediction           |
-# |-------|------------------------------|----------------------|
-# | <img src=results/gthealth_predhealth.png atl=healthy width="250"> | healthy    | healthy |
-# | <img src=results/gtmiil_predmil2.png atl=mildiou width="250">      | mildiou    | mildiou |
-# </p>
-```
+## Model Predictions
+
+| Perspective | Sample 1 | Sample 2 |
+| :--- | :---: | :---: |
+| **Ground Truth (GT)** | <img src="results/mild.png" width="640" alt="Mildiou GT"> | <img src="results/mild-.png" width="640" alt="Mildiou GT"> |
+| **Prediction** <br> (Overlay diseased on GT) | <img src="results/mild1.png" width="640" alt="Mildiou Prediction"> | <img src="results/mild-1.png" width="640" alt="Mildiou Prediction"> |
 
 
 ## Contact
-- Ousseini Hamza Abdoul Djalil - Engineer (abdouldjalilo@gmail.com)
-- Rousseau David - Professor
+- Ousseini Hamza Abdoul Djalil - Engineer (abdouldjalilo@gmail.com / abdoul-djalil.ousseini-hamza@inrae.fr)
+- Rousseau David - Professor (david.rousseau@univ-angers.fr)
+
+
